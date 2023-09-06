@@ -1,0 +1,32 @@
+# Ignore compiled Java classes
+*.class
+
+# Ignore compiled JNI shared libraries
+*.o
+*.so
+*.dll
+*.dylib
+
+# Ignore build and output directories
+bin/
+target/
+out/
+.vscode/
+
+# Ignore IDE-specific files
+.settings/
+.classpath
+.project
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Maven-specific files
+target/
+.mvn/
+
+# Ignore Gradle-specific files
+build/
+.gradle/
+gradle-wrapper.jar
