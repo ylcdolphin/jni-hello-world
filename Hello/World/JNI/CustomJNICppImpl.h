@@ -5,7 +5,7 @@
 extern "C"
 {
 #endif
-        void sayHello(int num, const char *name);
+        int sayHello(int num, const char *name);
 #ifdef __cplusplus
 }
 #endif
