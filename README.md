@@ -15,24 +15,24 @@ This is a JNI example using a customized dynamic linked library. Use a deep fold
 javac -h . Hello/World/JNI/TestJNI.java
 ```
 
-### 2. Compile a combined lib
+### 2. Compile C++ lib and then native lib
 
-This method will combine the C++ and C codes into one dll file.
+This method will generate a C++ dll and a C dll.
+
+```bash
+g++ -shared -I"./Hello/World/JNI" Hello/World/JNI/CustomJNICppImpl.cpp -o CustomJNICppImpl.dll
+gcc -shared -I"C:\Program Files\Java\jdk1.8.0_131\include" -I"C:\Program Files\Java\jdk1.8.0_131\include\win32" -I. -L. Hello/World/JNI/CustomJNICpp.c -o native.dll -l"CustomJNICppImpl"
+```
+
+### 2. (Alternative) Compile a combined lib
+
+This method will combine the C++ and C codes into one dll file. However, the try-catch does not work because the C++ function is declared as an extern "C" function.
 
 ```bash
 g++ -I"./Hello/World/JNI" -c Hello/World/JNI/CustomJNICppImpl.cpp -o CustomJNICppImpl.o
 gcc -I"C:\Program Files\Java\jdk1.8.0_131\include" -I"C:\Program Files\Java\jdk1.8.0_131\include\win32" -I. -c Hello/World/JNI/CustomJNICpp.c -o CustomJNICpp.o
 ld -r CustomJNICpp.o CustomJNICppImpl.o -o nativecombine.o
 g++ '-Wl,--add-stdcall-alias' -shared nativecombine.o -o native.dll
-```
-
-### 2. (Alternative) Compile c++ lib and then native lib
-
-This method will generate a C++ dll and a C dll.
-
-```bash
-g++ '-Wl,--add-stdcall-alias' -shared -I"./Hello/World/JNI" Hello/World/JNI/CustomJNICppImpl.cpp -o CustomJNICppImpl.dll
-gcc '-Wl,--add-stdcall-alias' -shared -I"C:\Program Files\Java\jdk1.8.0_131\include" -I"C:\Program Files\Java\jdk1.8.0_131\include\win32" -I. -L. Hello/World/JNI/CustomJNICpp.c -o native.dll -l"CustomJNICppImpl"
 ```
 
 ### 3. Compile java
